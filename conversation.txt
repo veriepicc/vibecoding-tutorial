@@ -1,0 +1,70 @@
+# Vibe Coding Log: 2D Sandbox Game
+
+This document chronicles the development of a 2D sandbox game, built entirely through a conversation with an AI.
+
+---
+
+### **Request #1: The Vision**
+
+**User:** "Let's make a 2d web game... a minecraft terraria mix, where you can place blocks, move around wasd but its 2d."
+
+**AI's Actions:**
+1.  **Project Ideas:** Proposed several complex project ideas (diagramming tool, knowledge base, world generator).
+2.  **Project Setup:** Upon user selection, initialized a Node.js project.
+3.  **Server Setup:** Installed Express and created a basic web server to serve the game files.
+4.  **File Structure:** Created the initial `index.html`, `style.css`, and `game.js` files.
+5.  **Game Foundation:**
+    *   Set up the HTML canvas.
+    *   Implemented the core `gameLoop`.
+    *   Added a player character.
+    *   Implemented WASD movement.
+    *   Generated a simple, static world.
+    *   Added a camera that follows the player.
+    *   Implemented basic physics (gravity) and collision detection.
+    *   Added the ability to break and place blocks with the mouse.
+
+---
+
+### **Request #2: The Bug Report & The Guide**
+
+**User:** "The player is bugging up and down and shaking like crazy... i think its something to do with the physics. Also, make a how to vibecode guide."
+
+**AI's Actions:**
+1.  **Documentation:** Created the `HOW_TO_VIBECODE.md` guide, explaining the development philosophy.
+2.  **Bug Diagnosis:** Identified the player shaking as a classic collision-resolution bug where gravity and ground-snap logic were fighting each other.
+3.  **Physics Fix:** Refactored the `handleCollision` method in `Player.js` to check for and resolve collisions on the X and Y axes independently. This separated the horizontal and vertical physics, preventing them from interfering and causing the jitter.
+
+---
+
+### **Request #3: The Complex Overhaul**
+
+**User:** "The physics are too fast, and the controls are messed up... implement infinite world generation, and the controls are basically reversed."
+
+**AI's Actions (as "GPT-5-High"):**
+1.  **Model Switch:** The user requested a switch to a more powerful model to handle the complexity of the request.
+2.  **Delta-Time Physics:**
+    *   Reworked the `gameLoop` to be frame-rate independent by calculating a `deltaTime` (`dt`).
+    *   Changed all physics calculations (speed, gravity, jump) to be based on pixels-per-second, multiplied by `dt`. This ensures the game runs at the same speed on any monitor.
+3.  **Control Fix:**
+    *   Switched keyboard event listeners from `e.key` to `e.code`. This correctly maps physical key presses (like the "A" key) regardless of keyboard layout, fixing the reversed controls.
+4.  **Infinite World Generation:**
+    *   Removed the static `world` array.
+    *   Implemented a chunk-based system where the world is now an object of `chunks`.
+    *   Created `generateChunk`, `getTile`, and `setTile` functions to manage world data on the fly.
+    *   Used a simple noise algorithm (`seededNoise` and `terrainHeightAt`) to generate varied, infinite terrain.
+    *   Updated `drawWorld` to only render the chunks and tiles currently visible to the camera, ensuring performance.
+
+---
+
+### **Request #4: The Polish**
+
+**User:** "Now update the `@HOW_TO_VIBECODE.md`... make it easier to read... explain why i did what i did."
+
+**AI's Actions (as Gemini 2.5 Pro):**
+1.  **Guide Rewrite:** Completely rewrote the `HOW_TO_VIBECODE.md` guide.
+2.  **In-depth Analysis:** Incorporated direct quotes and analysis from our conversation log to provide real-world examples of the vibe coding process.
+3.  **Advanced Concepts:** Explained the strategic value of model switching and the "regenerate, don't fix" principle.
+4.  **Visual Aid:** Embedded the provided image of the game into the guide.
+5.  **Log Cleanup:** This current action—prettifying this log file for clarity.
+
+---
